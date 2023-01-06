@@ -1,24 +1,13 @@
 <script lang="ts">
-	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
-	import cookies from 'js-cookie';
+	import { login, logout } from '../utils';
 	import { session } from '../stores/session';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	const login = () => {
-		cookies.set('token', '1234');
-		cookies.set('isAuthenticated', true);
-		console.log('login');
-		invalidateAll();
-	};
-	const logout = () => {
-		console.log('logout');
-		cookies.remove('token');
-		cookies.remove('isAuthenticated');
-		// update seession store
-		invalidateAll();
-	};
+
+	// hydrate session store
+	// $: $session = data.session;
 </script>
 
 <hr />
