@@ -1,4 +1,5 @@
 import type { Handle } from "@sveltejs/kit";
+import { append } from "svelte/internal";
 type InferFirstArg<T> = T extends (arg1: infer A, ...args: any[]) => any ? A : T;
 
 const getLocals = (event: InferFirstArg<Handle>['event']) => {
@@ -11,8 +12,12 @@ const getLocals = (event: InferFirstArg<Handle>['event']) => {
   }
 }
 export const handle: Handle = async ({ event, resolve }) => {
-  console.log('handle', event.cookies.get('token'))
+  console.log('handle')
   event.locals = getLocals(event)
-  const reponse = await resolve(event)
-  return reponse
+  if (event.cookies.get('token') !== 'undefined') {
+    event.request.headers.delete('token')
+    event.request.headers.append('token', event.cookies.get('token'))
+  }
+  const response = await resolve(event)
+  return response
 }

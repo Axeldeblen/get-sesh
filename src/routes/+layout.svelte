@@ -7,7 +7,8 @@
 	export let data: PageData;
 
 	// hydrate session store
-	// $: $session = data.session;
+	$: console.log('layout here');
+	$: $session = data.session;
 </script>
 
 <hr />
