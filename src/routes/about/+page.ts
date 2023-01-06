@@ -5,7 +5,7 @@ import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async ({ fetch, data }) => {
   // have to fetch it from the store because we don't have access to locals or cookies
-  const $session = get(session);
+  // const $session = get(session);
 
   // can only get document cookies on browser side
   // console.log(document && document?.cookie)
@@ -13,13 +13,13 @@ export const load: PageLoad = async ({ fetch, data }) => {
   // don't want to await parent cause it will cause waterfall
   // const parentData = await parent()
 
-  console.log('about page load', { $session, data })
+  console.log('about page load', { data })
 
   try {
 
-    const tokenHeaders = new Headers()
-    tokenHeaders.append('token', $session?.token)
-    const countriesResponse = await fetch('/backend/countries', { headers: tokenHeaders })
+    // const tokenHeaders = new Headers()
+    // tokenHeaders.append('token', $session?.token)
+    const countriesResponse = await fetch('/backend/countries')
     const countries = await countriesResponse.json()
 
 

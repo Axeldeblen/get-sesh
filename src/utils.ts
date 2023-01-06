@@ -7,13 +7,13 @@ export const login = () => {
   cookies.set('token', '1234');
   cookies.set('isAuthenticated', true);
   console.log('login');
-  session.set({ isAuthenticated: true, token: '1234' });
+  // session.set({ isAuthenticated: true, token: '1234' });
   invalidateAll();
 };
 export const logout = () => {
   console.log('logout');
   cookies.remove('token');
   cookies.remove('isAuthenticated');
-  session.set(null);
+  // session.set(null);
   invalidateAll();
 };
