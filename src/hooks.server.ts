@@ -1,5 +1,4 @@
 import type { Handle } from "@sveltejs/kit";
-import { append } from "svelte/internal";
 type InferFirstArg<T> = T extends (arg1: infer A, ...args: any[]) => any ? A : T;
 
 const getLocals = (event: InferFirstArg<Handle>['event']) => {
@@ -13,7 +12,8 @@ const getLocals = (event: InferFirstArg<Handle>['event']) => {
 }
 export const handle: Handle = async ({ event, resolve }) => {
   console.log('handle')
-  event.locals = getLocals(event)
+  // We don't need to pass the session through headers if we just augment the request
+  // event.locals = getLocals(event)
   if (event.cookies.get('token') !== 'undefined') {
     event.request.headers.delete('token')
     event.request.headers.append('token', event.cookies.get('token'))
